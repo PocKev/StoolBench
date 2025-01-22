@@ -18,8 +18,15 @@ export class LambdaStack extends cdk.Stack {
 
     const endpoint = new apigw.LambdaRestApi(this, `ApiGwEndpoint`, {
       handler: sbFn,
+      proxy: false,
       restApiName: `StoolBenchRestApi`,
     });
+
+    const healthResource = endpoint.root.addResource('health');
+    healthResource.addMethod('GET');
+
+    const benchResource = endpoint.root.addResource('bench');
+    benchResource.addMethod('POST');
 
   }
 }
