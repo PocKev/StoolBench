@@ -1,7 +1,7 @@
 import json
 import healthCheckHandler
 import benchHandler
-from constants import HTTP_CLIENT_ERROR
+import constants
 
 '''
 This is the entry point for StoolBench Lambda Function
@@ -17,7 +17,7 @@ def routeEvent(event):
         return benchHandler.handle(json.loads(event['body']))
     else:
         return {
-        'statusCode': HTTP_CLIENT_ERROR,
+        'statusCode': constants.StatusCode.HTTP_CLIENT_ERROR,
         'body': json.dumps({
             'reason': 'Received improper request and no handler found.',
             'event': event

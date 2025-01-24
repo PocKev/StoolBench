@@ -20,7 +20,14 @@ export class LambdaStack extends cdk.Stack {
       handler: sbFn,
       proxy: false,
       restApiName: `StoolBenchRestApi`,
+      defaultCorsPreflightOptions: {
+        allowOrigins: apigw.Cors.ALL_ORIGINS,
+        allowMethods: apigw.Cors.ALL_METHODS,
+        allowHeaders: ['Content-Type', 'Authorization', 'X-Amz-Date', 'X-Api-Key', 'X-Amz-Security-Token', 'X-Amz-User-Agent'],
+        allowCredentials: true,
+      }
     });
+
 
     const healthResource = endpoint.root.addResource('health');
     healthResource.addMethod('GET');
