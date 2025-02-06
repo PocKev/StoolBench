@@ -1,13 +1,13 @@
 import json
 import time
-from constants import HTTP_SUCCESS
+import constants
 
 def handle():
     timestamp = time.time()
-    return {
-        'statusCode': HTTP_SUCCESS,
-        'body': json.dumps({
+    return constants.Helper.buildResponse(
+        constants.StatusCode.HTTP_SUCCESS,
+        json.dumps({
             'status': 'Service is healthy',
             'timestamp': timestamp
         })
-    }
+    )

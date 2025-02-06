@@ -1,15 +1,19 @@
 import json
-from constants import HTTP_SUCCESS
+import time
+import constants
 
 def validateBody(body):
     pass
 
 def handle(body: dict):
     validateBody(body)
-    return {
-        'statusCode': HTTP_SUCCESS,
-        'body': json.dumps({
-            'status': 'Service is healthy',
-            'message': body['message']
+    timestamp = body['timestamp'] \
+        if 'timestamp' in body and body['timestamp'] is not None \
+        else time.time()
+    return constants.Helper.buildResponse(
+        constants.StatusCode.HTTP_SUCCESS,
+        json.dumps({
+            'message': 'Successfully logged dump at {}.'.format(timestamp),
+            'type': body['type']
         })
-    }
+    )
